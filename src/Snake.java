@@ -10,6 +10,7 @@ public class Snake extends JFrame implements Runnable{
 	private byte pos = 1;
 	private Thread th = new Thread(this);
 	private static int placar = 0;
+	private JButton btReiniciar = new JButton("Reiniciar");
 	
 	public Snake() {
 		super("Cobrinha - Placar" + placar);
@@ -36,9 +37,19 @@ public class Snake extends JFrame implements Runnable{
 				}
 			}
 		});
+		btReiniciar.addActionListener(new ActionListener(){
+			public void actionPerfomed(ActionEvent e){
+				reiniciar();
+			}
+		});
+		this.add(btReiniciar, BorderLayout.NORTH);
 		this.repaint(); // prevenir bugs, se nao aparecer nada;
 		th.start();
 		this.setVisible(true);
+	}
+
+	public void reiniciar(){
+		th.start();
 	}
 	
 	public void run(){
@@ -49,25 +60,25 @@ public class Snake extends JFrame implements Runnable{
 				crescerSnake();
 				placar++;
 				this.setTitle("Cobrinha - Placar" + placar);
-				posTopMaca = (int)(Math.random()* 470 + 30);
-				posEsqMaca = (int)(Math.random()* 500);
+				posTopMaca = (int)(Math.random()* 400 + 50);
+				posEsqMaca = (int)(Math.random()* 450 + 10);
 				repaint();
 			}
 			for(int i = posEsqSnake.length - 1; i > 0; i--){
-				posEsqSnake[i] = posEsqSnake[i--];
+				posEsqSnake[i] = posEsqSnake[i-1];
 			}
 			for(int i = posTopSnake.length - 1; i > 0; i--){
-				posTopSnake[i] = posTopSnake[i--];
+				posTopSnake[i] = posTopSnake[i-1];
 			}
 			switch(pos){
-				case 1: posEsqSnake[0]++;break;
-				case -1:posEsqSnake[0]--;break;
-				case 2: posTopSnake[0]--;break;
-				case -2:posTopSnake[0]++;break;
+				case 1: posEsqSnake[0]+=20;break;
+				case -1:posEsqSnake[0]-=20;break;
+				case 2: posTopSnake[0]-=20;break;
+				case -2:posTopSnake[0]+=20;break;
 			}
 			repaint();
 			try {
-				th.sleep(5);
+				th.sleep(60);
 			}catch (InterruptedException e ){
 			}
 		}
@@ -105,10 +116,10 @@ public class Snake extends JFrame implements Runnable{
 	}
 		private void andar(){
 			for(int i = posEsqSnake.length - 1; i > 0; i--){
-				posEsqSnake[i] = posEsqSnake[i--];
+				posEsqSnake[i] = posEsqSnake[i-1];
 			}
 			for(int i = posTopSnake.length - 1; i > 0; i--){
-				posTopSnake[i] = posTopSnake[i--];
+				posTopSnake[i] = posTopSnake[i-1];
 			}
 			if(posEsqSnake.length > 1){
 			switch(pos){
