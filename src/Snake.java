@@ -23,22 +23,18 @@ public class Snake extends JFrame implements Runnable{
 				// System.out.println(e.getKeyCode()); //pegar tecla apertada e exibir no console.
 				switch(e.getKeyCode()){
 				case 37:
-					pos = -1;
-					break;
+					pos = -1;break;
 				case 38:
-					pos = 2;
-					break;
+					pos = 2;break;
 				case 39:
-					pos = 1;
-					break;
+					pos = 1;break;
 				case 40:
-					pos = -2;
-					break;
+					pos = -2;break;
 				}
 			}
 		});
 		btReiniciar.addActionListener(new ActionListener(){
-			public void actionPerfomed(ActionEvent e){
+			public void actionPerformed(ActionEvent e) {
 				reiniciar();
 			}
 		});
